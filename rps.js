@@ -10,8 +10,6 @@ function getComputerChoice() {
         return 'paper';
     } else if (randomInt === 2) {
         return 'scissors';
-    } else {
-        return 'ERROR';
     }
 }
 
@@ -25,11 +23,14 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
-    if (humanChoice === 'rock') {
+    if (humanChoice !== 'rock' && humanChoice !== 'paper' && humanChoice !== 'scissors' ){
+        console.log('Please enter a valid response.');
+        playRound(getHumanChoice(), getComputerChoice());
+    } else if (humanChoice === 'rock') {
         console.log('Human: Rock');
         if (computerChoice === 'rock') {
             console.log('Computer: Rock');
-            console.log('It\'s a tie');
+            console.log('It\'s a tie!');
         } else if (computerChoice === 'paper') {
             console.log('Computer: Paper');
             console.log('Paper covers rock. Computer wins!');
@@ -70,4 +71,13 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-playRound(getHumanChoice(),getComputerChoice());
+function playGame(numberOfRounds) {
+    for(let i = 0; i < numberOfRounds; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    }
+    console.log(`Final Score: Human ${humanScore}, Computer ${computerScore}.`);
+}
+
+playGame(5);
